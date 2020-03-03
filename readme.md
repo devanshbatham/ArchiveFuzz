@@ -17,7 +17,7 @@ Lets scan mail.ru for archived secrets :
 `python archivehunter.py mail.ru`
 
 
-![example](https://github.com/Grumpy-developer/ArchiveFuzz/blob/master/static/mailru-example.PNG)
+![example](https://raw.githubusercontent.com/devanshbatham/ArchiveFuzz/master/static/mailru-example.PNG)
 
 # Compatibility
 **It works on anything that has python installed** 
