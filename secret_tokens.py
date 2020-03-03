@@ -6,7 +6,7 @@ import errno
 def find_secret_tokens(url , domain , data):
     first_sub = ' \u001b[32m|\u001b[0m'
     second_sub = '\u001b[32m|--\u001b[0m'
-    print("\n\u001b[32m  [~] Secret Keys enumration started\u001b[0m")
+    print("\n\u001b[32m  [~] Secret Keys enumeration started\u001b[0m")
     print(" \u001b[32m  |")
 
     # for amazon secrets : 
