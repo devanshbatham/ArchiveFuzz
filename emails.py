@@ -9,7 +9,7 @@ import os
 def email_enumerator(url , domain , r):
     first_sub = ' \u001b[32m|\u001b[0m'
     second_sub = '\u001b[32m|--\u001b[0m'
-    print("\n\u001b[32m  [~] Email enumration started\u001b[0m")
+    print("\n\u001b[32m  [~] Email enumeration started\u001b[0m")
     print(" \u001b[32m  |")
     
     # I was/am actually dumb , I didn't think of image names like "name@2x.jpg" , this will also be considered as an email as per my regex
