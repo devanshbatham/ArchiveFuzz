@@ -29,9 +29,13 @@ Lets scan mail.ru for archived secrets :
 
 `cd Archive-Fuzz`
 
+`git clone https://github.com/devanshbatham/ArchiveFuzz`
+
 `virtualenv env `
 
-`source env/bin/activate` 
+`source env/bin/activate`
+
+`cd ArchiveFuzz`
 
 `pip install -r requirements.txt`
 
