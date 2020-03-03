@@ -16,8 +16,8 @@ def email_enumerator(url , domain , r):
     # so I blacklisted some extensions , and removed them from the raw_data , so if you get any falsepositives , add them to the below re.sub funtion
     # below line is for removing false positives 
     
-    r = re.sub('(pdf|html|jpg|jpeg|png|gif|bmp|svg|1x|2x|3x|4x|5x|6x|7x|9x|10x|11x|12x|13x|14x|15x)' , '' , r) 
-    any_email_pattern    = "([a-zA-Z0-9+._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)" # pattern for matching  email 
+    r = re.sub('(-p-|mp4|webm|JPG|pdf|html|jpg|jpeg|png|gif|bmp|svg|1x|2x|3x|4x|5x|6x|7x|9x|10x|11x|12x|13x|14x|15x)' , '' , r) 
+    any_email_pattern    = "([a-zA-Z0-9+._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]{2,7})" # pattern for matching  email 
     any_emails     = re.findall(any_email_pattern , r) # list of all the emails 
     cnt = Counter(any_emails) # removing duplicate emails
     print("   "+second_sub+"[+] Total unique emails found        : " + str(len(cnt))) # printing no of unique subdomains
