@@ -1,6 +1,6 @@
 # ArchiveFuzz : hunt the archives
 
-![ArchiveFuzz](https://raw.githubusercontent.com/Grumpy-developer/ArchiveFuzz/master/static/banner.PNG)
+![ArchiveFuzz](static/banner.PNG)
 # What the heck is this thing ? 
 
 ArchiveFuzz hunts down the archived data(subdomains/emails/API keys) of domains. **Web archiving** is the process of collecting portions of the [World Wide Web](https://en.wikipedia.org/wiki/World_Wide_Web "World Wide Web") to ensure the information is [preserved](https://en.wikipedia.org/wiki/Digital_preservation "Digital preservation") in an [archive](https://en.wikipedia.org/wiki/Archive "Archive") for future researchers, historians, and the public.
