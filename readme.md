@@ -41,6 +41,9 @@ Lets scan mail.ru for archived secrets :
 
 `python archivefuzz.py example.com`
 
+# TODO
+Implementing checks for more API keys that are passed in GET requests.
+
 # Wanna show support for the tool ?
 
 **I will be more than happy if you will show some love for Animals by donating to [Animal Aid Unlimited](https://animalaidunlimited.org/)** **,Animal Aid Unlimited saves animals through street animal rescue, spay/neuter and education. Their mission is dedicated to the day when all living beings are treated with compassion and love.** ✨
