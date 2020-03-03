@@ -12,7 +12,7 @@ I initially made ArchiveFuzz for my personal use , Now making it public . This r
 
 # Example
 
-Lets scan mail.ru for archived secrets :
+Lets scan example.com for archived secrets :
 
 `python archivehunter.py mail.ru`
 
