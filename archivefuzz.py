@@ -1,10 +1,6 @@
 from archivefuzz import *
 from urllib.parse import unquote 
 from archivefuzz.controller import connector
-import requests
-import errno
-import re
-import os
 import time
 import sys
 start_time = time.time()
@@ -52,6 +48,4 @@ def main():
     print("\n \u001b[31m [!] Total execution time                 : %ss\u001b[0m" % str((time.time() - start_time))[:-12])
 
 if __name__ == "__main__":
-    if os.name == 'nt':
-        os.system('cls')
     main()

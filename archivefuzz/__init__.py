@@ -1,7 +1,6 @@
 from collections import Counter
 import re
 import os
-import errno
 
 def email_finder(url, domain, r):
     """
