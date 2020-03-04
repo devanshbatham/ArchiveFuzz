@@ -9,7 +9,7 @@ import errno
 # Note   : This function might produce some false positives , but in most the cases the results are correct
 # function for enumerating IPv4 addresses
 
-def find_ip(url , domain , data):
+def find_ip(url, domain, data):
 
     # for interactive output 
     print("\n\u001b[32m  [~] IPv4 scan started")
@@ -26,8 +26,8 @@ def find_ip(url , domain , data):
     for i in range(len(ip_addresses)):
         final_ips.append('.'.join(list(ip_addresses[i])))    
     cnt = Counter(ip_addresses)
-    print("   "+second_sub+"[+] Total unique IPs found           : " + str(len(cnt)))
-    filename = domain+"-output/"+domain+"-IPs.txt" #defining the filename
+    print("   " + second_sub + "[+] Total unique IPs found           : " + str(len(cnt)))
+    filename = domain + "-output/" + domain + "-IPs.txt" #defining the filename
     final = Counter(final_ips)
     # if directory doesnot exists create it 
     if len(cnt) > 0:
@@ -44,7 +44,7 @@ def find_ip(url , domain , data):
         # writing the IPs in file
         for i in final.keys():
             with open(filename, "a") as f:
-                f.write(i+"\n")
-        print("   "+second_sub+"[+] IPs saved in                     : {} ".format(filename))
+                f.write(i + "\n")
+        print("   " + second_sub +"[+] IPs saved in                     : {} ".format(filename))
 
-    print("   "+second_sub+"[+] IP scan finished ")
+    print("   " + second_sub + "[+] IP scan finished ")

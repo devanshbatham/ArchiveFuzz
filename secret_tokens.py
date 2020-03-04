@@ -3,7 +3,7 @@ import re
 import os
 import errno 
 
-def find_secret_tokens(url , domain , data):
+def find_secret_tokens(url, domain, data):
     first_sub = ' \u001b[32m|\u001b[0m'
     second_sub = '\u001b[32m|--\u001b[0m'
     print("\n\u001b[32m  [~] Secret Keys enumeration started\u001b[0m")
@@ -21,7 +21,7 @@ def find_secret_tokens(url , domain , data):
 
     
 # status : done 
-def amazon_secrets(data , domain):
+def amazon_secrets(data, domain):
     #print(data)
     second_sub = '\u001b[32m|--\u001b[0m'
     # there are three possible keys , below the regex patterns for them 
@@ -29,9 +29,9 @@ def amazon_secrets(data , domain):
     aws_clients = re.findall(aws_client_id_pattern , data)
     cnt = Counter(aws_clients)
 
-    print("   "+second_sub+"[+] AWS Access IDs found             : " + str(len(cnt)))
-    filename = domain+"-output/"+domain+"-AWS-ACCESS-IDs.txt"
-    if len(cnt)>0:
+    print("   " + second_sub + "[+] AWS Access IDs found             : " + str(len(cnt)))
+    filename = domain + "-output/" + domain + "-AWS-ACCESS-IDs.txt"
+    if len(cnt) > 0:
         if not os.path.exists(os.path.dirname(filename)):
             try:
                 os.makedirs(os.path.dirname(filename))
@@ -50,12 +50,12 @@ def amazon_secrets(data , domain):
         print("   "+second_sub+"[+] AWS Access IDs saved in          : {} ".format(filename))
 
 
-def facebook_access(data  , domain):
+def facebook_access(data, domain):
     second_sub = '\u001b[32m|--\u001b[0m'
     
-    facebook_access_token_pattern   = "EAACEdEose0cBA[0-9A-Za-z]+"
+    facebook_access_token_pattern = "EAACEdEose0cBA[0-9A-Za-z]+"
     
-    facebook_access_tokens          = re.findall(facebook_access_token_pattern , data) 
+    facebook_access_tokens = re.findall(facebook_access_token_pattern, data) 
     cnt = Counter(facebook_access_tokens)
 
     print("   "+second_sub+"[+] Facebook Access Tokens found     : " + str(len(cnt)))
@@ -79,17 +79,17 @@ def facebook_access(data  , domain):
     
     
 
-def facebook_oath(data , domain):
+def facebook_oath(data, domain):
     # for interactive output
     second_sub = '\u001b[32m|--\u001b[0m'
 
-    facebook_oath_token_pattern     = "[f|F][a|A][c|C][e|E][b|B][o|O][o|O][k|K].*['|\"][0-9a-f]{32}['|\"]"
-    facebook_oath_tokens            = re.findall(facebook_oath_token_pattern , data)
+    facebook_oath_token_pattern = "[f|F][a|A][c|C][e|E][b|B][o|O][o|O][k|K].*['|\"][0-9a-f]{32}['|\"]"
+    facebook_oath_tokens = re.findall(facebook_oath_token_pattern , data)
     cnt = Counter(facebook_oath_tokens)
-    print("   "+second_sub+"[+] Facebook Oath Tokens found       : " + str(len(cnt)))
+    print("   " + second_sub + "[+] Facebook Oath Tokens found       : " + str(len(cnt)))
 
-    filename = domain+"-output/"+domain+"-Facebook-oath-tokens.txt"
-    if len(cnt)>0: 
+    filename = domain + "-output/" + domain + "-Facebook-oath-tokens.txt"
+    if len(cnt) > 0: 
         if not os.path.exists(os.path.dirname(filename)):
             try:
                 os.makedirs(os.path.dirname(filename))
@@ -104,19 +104,19 @@ def facebook_oath(data , domain):
         for i in cnt.keys():
             with open(filename, "a") as f:
                 f.write(i+"\n") 
-        print("   "+second_sub+"[+] Facebook Oath Tokens  saved in   : {} ".format(filename))
+        print("   " + second_sub + "[+] Facebook Oath Tokens  saved in   : {} ".format(filename))
 
-def google_api(data , domain):
+def google_api(data, domain):
     # for interactive output
     second_sub = '\u001b[32m|--\u001b[0m'
 
     google_api_pattern = "AIza[0-9A-Za-z\\-_]{35}"
     google_apis = re.findall(google_api_pattern , data)
     cnt = Counter(google_apis)
-    print("   "+second_sub+"[+] Google API Keys found            : " + str(len(cnt)))
+    print("   " + second_sub + "[+] Google API Keys found            : " + str(len(cnt)))
     
-    filename = domain+"-output/"+domain+"-Google-API-keys.txt"
-    if len(cnt)>0: 
+    filename = domain + "-output/" + domain + "-Google-API-keys.txt"
+    if len(cnt) > 0: 
         if not os.path.exists(os.path.dirname(filename)):
             try:
                 os.makedirs(os.path.dirname(filename))
@@ -131,5 +131,5 @@ def google_api(data , domain):
         for i in cnt.keys():
             with open(filename, "a") as f:
                 f.write(i+"\n") 
-        print("   "+second_sub+"[+] Google  APIs  saved in           : {} ".format(filename))
-    print("   "+second_sub+"[+] API Key scan finished ")
+        print("   " + second_sub + "[+] Google  APIs  saved in           : {} ".format(filename))
+    print("   " + second_sub + "[+] API Key scan finished ")

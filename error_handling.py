@@ -9,7 +9,6 @@ import sys
 This function is solely for error handling 
 '''
 def error_handler(url):
-
     try:
         res = requests.get(url,timeout=30)
     except requests.ConnectionError as e:

@@ -36,7 +36,7 @@ if __name__ == "__main__":
     """
     print(banner)
     if len(sys.argv)!=2:
-            print("\u001b[31;1m[!] Usage : python archivefuzz.py example.com \u001b[0m")
+            print("\u001b[31;1m[!] Usage : python3 archivefuzz.py example.com \u001b[0m")
             sys.exit(1) 
     domain = sys.argv[1]
     print(" \u001b[34;1m [!] Be patient . This might take some time . I am hunting Archives for you \u001b[0m\n")

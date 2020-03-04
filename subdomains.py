@@ -8,7 +8,7 @@ import errno
 
 # function for finding subdomains from web-archive
 
-def subdomain(url , domain , r ):
+def subdomain(url, domain, r):
     print("\u001b[32m  [~] Subdomain scan started")
     print("\u001b[32m   |")
 
@@ -20,8 +20,8 @@ def subdomain(url , domain , r ):
     subdomain_pattern = '[0-9a-z]+\.'+domain #matching subdomains 
     subdomains = re.findall(subdomain_pattern , r.text)
     cnt = Counter(subdomains) # using counter for removing duplicate entries 
-    print("   "+second_sub+"[+] Total unique subdomains found    : " + str(len(cnt))) # printing no of unique subdomains
-    filename = domain+"-output/"+domain+"-subdomains.txt" #defining the filename
+    print("   " + second_sub + "[+] Total unique subdomains found    : " + str(len(cnt))) # printing no of unique subdomains
+    filename = domain + "-output/" + domain + "-subdomains.txt" #defining the filename
     # if directory doesnot exists create it 
     if len(cnt) > 0:
         if not os.path.exists(os.path.dirname(filename)):
@@ -38,7 +38,6 @@ def subdomain(url , domain , r ):
         for i in cnt.keys():
             with open(filename, "a") as f:
                 f.write(i+"\n")
-        print("   "+second_sub+"[+] Subdomains saved in              : {} ".format(filename))
+        print("   " + second_sub + "[+] Subdomains saved in              : {} ".format(filename))
 
-    print("   "+second_sub+"[+] Subdomain scan finished ")
-
+    print("   " + second_sub + "[+] Subdomain scan finished ")
