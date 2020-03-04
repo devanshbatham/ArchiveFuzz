@@ -69,6 +69,10 @@ def info_gatherer(data, task_name, patterns):
         r = re.sub(blacklist_pattern, '', data)
         results = set(re.findall(task_pattern , r))
     else:
-        results = set(re.findall(task_pattern, data))
+        if task_name.startswith("IPv"):
+            results = re.findall(task_pattern, data)
+            results = set([".".join(octet) for octet in results])
+        else:
+            results = set(re.findall(task_pattern, data))
     print("   %s[+] %-30s: %s" % (second_sub, task_name, len(results)))
     return list(results)
