@@ -1,13 +1,5 @@
-from error_handling import error_handler
-from subdomains import subdomain
-from emails import email_enumerator
-from ip_address import find_ip
-from secret_tokens import find_secret_tokens
+from archivefuzz import *
 from urllib.parse import unquote 
-import requests
-import errno
-import re
-import os
 import time
 import sys
 start_time = time.time()
@@ -16,11 +8,53 @@ start_time = time.time()
 Dont be a jerk use responsibly
 '''
 
-if __name__ == "__main__":
+def main(domain, result_folder):
+    print(" \u001b[34;1m [!] Be patient . This might take some time . I am hunting Archives for you \u001b[0m\n")
+    url = "http://web.archive.org/cdx/search/cdx?url=*."
+    url += domain + "/*&output=txt&fl=original&collapse=urlkey&page="
+    response = connector(url)
+    if not response:
+        return
+    data = unquote(response) # url decoding the data
+    tasks = {
+        "Email": [
+            "([a-zA-Z0-9+._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]{2,7})",
+            "(-p-|mp4|webm|JPG|pdf|html|jpg|jpeg|png|gif|bmp|svg|1x|2x|3x|4x|5x|6x|7x|9x|10x|11x|12x|13x|14x|15x)"
+            ],
+        "IPv4": [
+            "(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)",
+            ""
+        ],
+        "Subdomain": [
+            "[0-9a-z]+\." + domain,
+            ""
+        ],
+        "AWS Access IDs": [
+            "(A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}",
+            ""
+        ],
+        "Facebook Acess Token": [
+            "EAACEdEose0cBA[0-9A-Za-z]+",
+            "",
+        ],
+        "Facebook Oath Token": [
+            "[f|F][a|A][c|C][e|E][b|B][o|O][o|O][k|K].*['|\"][0-9a-f]{32}['|\"]",
+            ""
+        ],
+        "Google API Key": [
+            "AIza[0-9A-Za-z\\-_]{35}",
+            ""
+        ]
+    }
+    for name, patterns in tasks.items():
+        result = info_gatherer(data, name, patterns)
+        if result:
+            report_generator(result_folder, name.lower(), "\n".join(result))
     
-    if os.name == 'nt':
-        os.system('cls')
 
+    
+
+if __name__ == "__main__":
     banner = """
 \u001b[35;1m
      _____                .__    .__            ___________                    
@@ -36,27 +70,10 @@ if __name__ == "__main__":
     """
     print(banner)
     if len(sys.argv)!=2:
-            print("\u001b[31;1m[!] Usage : python archivefuzz.py example.com \u001b[0m")
-            sys.exit(1) 
+        print("\u001b[31;1m[!] Usage : python3 archivefuzz.py example.com \u001b[0m")
+        sys.exit(1) 
     domain = sys.argv[1]
-    print(" \u001b[34;1m [!] Be patient . This might take some time . I am hunting Archives for you \u001b[0m\n")
-    url = "http://web.archive.org/cdx/search/cdx?url=*."+domain+"/*&output=txt&fl=original&collapse=urlkey&page="
-    error_handler(url)                    # for error handling, imported from error_handling.py
-    try:
-        r = requests.get(url)
-        r.raise_for_status()
-    except requests.exceptions.HTTPError as err:
-        print(err)
-        exit(0)
-    data = unquote(r.text)                 # url decoding the data 
-    subdomain(url , domain , r)            # for subdomains, imported from subdomains.py
-    email_enumerator(url , domain , data)  # for emails , imported from emails.py 
-    find_ip(url , domain ,data)            # finds IPv4 addresses , imported from ip_address.py
-
-     # beta state starts here  
-    find_secret_tokens(url , domain , data)                                    
-                                          # prints the total execution time 
-
-
+    result_folder = prepare_result(domain)
+    # TODO edit here to make it work with both cli and args
+    main(domain, result_folder)
     print("\n \u001b[31m [!] Total execution time                 : %ss\u001b[0m" % str((time.time() - start_time))[:-12])
-    
