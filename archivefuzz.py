@@ -2,6 +2,8 @@ from archivefuzz import *
 from urllib.parse import unquote 
 import time
 import sys
+import os
+
 start_time = time.time()
 
 '''
@@ -50,11 +52,11 @@ def main(domain, result_folder):
         result = info_gatherer(data, name, patterns)
         if result:
             report_generator(result_folder, name.lower(), "\n".join(result))
-    
 
-    
 
 if __name__ == "__main__":
+    if os.name == "nt":
+        os.system("cls")
     banner = """
 \u001b[35;1m
      _____                .__    .__            ___________                    
