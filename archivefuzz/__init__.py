@@ -21,7 +21,7 @@ def connector(url):
         raise RuntimeError("\u001b[31;1m%s\u001b[0m" % (e))
     finally:
         if not result:
-            print("\u001b[31;1mCan not get target information[0m")
+            print("\u001b[31;1mCan not get target information\u001b[0m")
             print("\u001b[31;1mIf you think this is a bug or unintentional behaviour. Report here : https://github.com/devanshbatham/ArchiveFuzz/issues\u001b[0m")
         return result
 
