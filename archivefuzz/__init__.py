@@ -115,8 +115,8 @@ def subdomain_finder(url, domain, r):
     second_sub = '\u001b[32m|--\u001b[0m' 
 
     # finding subdomains
-    subdomain_pattern = '[0-9a-z]+\.'+domain #matching subdomains 
-    subdomains = re.findall(subdomain_pattern , r.text)
+    subdomain_pattern = '[0-9a-z]+\.' + domain #matching subdomains 
+    subdomains = re.findall(subdomain_pattern , r)
     cnt = Counter(subdomains) # using counter for removing duplicate entries 
     print("   " + second_sub + "[+] Total unique subdomains found    : " + str(len(cnt))) # printing no of unique subdomains
     filename = domain + "-output/" + domain + "-subdomains.txt" #defining the filename
