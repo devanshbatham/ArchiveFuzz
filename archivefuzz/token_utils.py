@@ -1,26 +1,9 @@
 from collections import Counter
 import re
 import os
-import errno 
-
-def find_secret_tokens(url, domain, data):
-    first_sub = ' \u001b[32m|\u001b[0m'
-    second_sub = '\u001b[32m|--\u001b[0m'
-    print("\n\u001b[32m  [~] Secret Keys enumeration started\u001b[0m")
-    print(" \u001b[32m  |")
-
-    # for amazon secrets : 
-    amazon_secrets(data , domain)
-    #for facebook Access token   
-    facebook_access(data , domain) 
-    # for facebook oath tokens 
-    facebook_oath(data ,domain )
-    #facebook_secrets(data , domain)
-    # for google api key 
-    google_api(data , domain)
+import errno
 
     
-# status : done 
 def amazon_secrets(data, domain):
     #print(data)
     second_sub = '\u001b[32m|--\u001b[0m'
@@ -46,8 +29,8 @@ def amazon_secrets(data, domain):
         
         for i in cnt.keys():
             with open(filename, "a") as f:
-                f.write(i+"\n") 
-        print("   "+second_sub+"[+] AWS Access IDs saved in          : {} ".format(filename))
+                f.write(i + "\n") 
+        print("   " + second_sub + "[+] AWS Access IDs saved in          : {} ".format(filename))
 
 
 def facebook_access(data, domain):
@@ -58,9 +41,9 @@ def facebook_access(data, domain):
     facebook_access_tokens = re.findall(facebook_access_token_pattern, data) 
     cnt = Counter(facebook_access_tokens)
 
-    print("   "+second_sub+"[+] Facebook Access Tokens found     : " + str(len(cnt)))
-    filename = domain+"-output/"+domain+"-Facebook-access-tokens.txt"
-    if len(cnt)>0: 
+    print("   " + second_sub + "[+] Facebook Access Tokens found     : " + str(len(cnt)))
+    filename = domain + "-output/" + domain + "-Facebook-access-tokens.txt"
+    if len(cnt) > 0: 
         if not os.path.exists(os.path.dirname(filename)):
             try:
                 os.makedirs(os.path.dirname(filename))
@@ -74,8 +57,8 @@ def facebook_access(data, domain):
         
         for i in cnt.keys():
             with open(filename, "a") as f:
-                f.write(i+"\n") 
-        print("   "+second_sub+"[+] Facebook Tokens saved in         : {} ".format(filename))
+                f.write(i + "\n") 
+        print("   " + second_sub + "[+] Facebook Tokens saved in         : {} ".format(filename))
     
     
 

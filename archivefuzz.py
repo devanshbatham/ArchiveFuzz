@@ -40,7 +40,7 @@ if __name__ == "__main__":
             sys.exit(1) 
     domain = sys.argv[1]
     print(" \u001b[34;1m [!] Be patient . This might take some time . I am hunting Archives for you \u001b[0m\n")
-    url = "http://web.archive.org/cdx/search/cdx?url=*."+domain+"/*&output=txt&fl=original&collapse=urlkey&page="
+    url = "http://web.archive.org/cdx/search/cdx?url=*." + domain + "/*&output=txt&fl=original&collapse=urlkey&page="
     error_handler(url)                    # for error handling, imported from error_handling.py
     try:
         r = requests.get(url)
@@ -59,4 +59,3 @@ if __name__ == "__main__":
 
 
     print("\n \u001b[31m [!] Total execution time                 : %ss\u001b[0m" % str((time.time() - start_time))[:-12])
-    
