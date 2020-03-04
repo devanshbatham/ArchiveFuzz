@@ -42,11 +42,11 @@ def prepare_result(domain):
 
 
 def report_generator(folder, filename, data):
-    report_file = folder + "/" + filename
+    report_file = folder + "/" + filename + ".txt"
     try:
         with open(report_file, 'w') as writer:
             writer.write(data)
-        print("[+] %s saved in %s" %(filename, report_file)) # TODO edit here
+        print("      [!] Saved in %s" %(report_file))
     except OSError as e:
         print("\u001b[31;1m%s[0m" % (e))
         raise OSError("\u001b[31;1mError while writing %s[0m" % (report_file))
@@ -70,5 +70,5 @@ def info_gatherer(data, task_name, patterns):
         results = set(re.findall(task_pattern , r))
     else:
         results = set(re.findall(task_pattern, data))
-    print("   " + second_sub + "[+] " + task_name + "             : " + str(len(results)))
+    print("   %s[+] %-30s: %s" % (second_sub, task_name, len(results)))
     return list(results)
