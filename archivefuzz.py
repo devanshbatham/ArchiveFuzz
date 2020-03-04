@@ -1,7 +1,5 @@
 from archivefuzz import *
 from urllib.parse import unquote 
-from archivefuzz.controller import connector
-from archivefuzz.controller import prepare_result
 import time
 import sys
 start_time = time.time()
@@ -17,15 +15,42 @@ def main(domain, result_folder):
     response = connector(url)
     if not response:
         return
-    data = unquote(response)                 # url decoding the data 
-    subdomain_finder(domain, response)            # for subdomains, imported from subdomains.py
-    email_finder(domain, response)  # for emails , imported from emails.py 
-    ip_finder(domain, response)            # finds IPv4 addresses , imported from ip_address.py
-
-     # beta state starts here  
-    token_finder(domain, response)                                    
+    data = unquote(response) # url decoding the data
+    tasks = {
+        "Email": [
+            "([a-zA-Z0-9+._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]{2,7})",
+            "(-p-|mp4|webm|JPG|pdf|html|jpg|jpeg|png|gif|bmp|svg|1x|2x|3x|4x|5x|6x|7x|9x|10x|11x|12x|13x|14x|15x)"
+            ],
+        "IPv4": [
+            "(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)",
+            ""
+        ],
+        "Subdomain": [
+            "[0-9a-z]+\." + domain,
+            ""
+        ],
+        "AWS Access IDs": [
+            "(A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}",
+            ""
+        ],
+        "Facebook Acess Token": [
+            "EAACEdEose0cBA[0-9A-Za-z]+",
+            "",
+        ],
+        "Facebook Oath Token": [
+            "[f|F][a|A][c|C][e|E][b|B][o|O][o|O][k|K].*['|\"][0-9a-f]{32}['|\"]",
+            ""
+        ],
+        "Google API Key": [
+            "AIza[0-9A-Za-z\\-_]{35}",
+            ""
+        ]
+    }
+    for name, patterns in tasks.items():
+        result = info_gatherer(data, name, patterns)
+        if result:
+            report_generator(result_folder, name.lower(), "\n".join(result))
     
-    # prints the total execution time 
 
     
 
