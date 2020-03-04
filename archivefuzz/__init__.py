@@ -21,7 +21,7 @@ def connector(url):
         raise RuntimeError("\u001b[31;1m%s\u001b[0m" % (e))
     finally:
         if not result:
-            print("\u001b[31;1mCan not get target information[0m")
+            print("\u001b[31;1mCan not get target information\u001b[0m")
             print("\u001b[31;1mIf you think this is a bug or unintentional behaviour. Report here : https://github.com/devanshbatham/ArchiveFuzz/issues\u001b[0m")
         return result
 
@@ -34,7 +34,10 @@ def prepare_result(domain):
         result_folder: string full path of folder to save files
     """
     # Might not work on windows system
-    result_folder = os.environ['HOME'] + "/.archivefuzz/" + domain + "-output"
+    if os.name == "nt":
+        result_folder = domain + "-output"
+    else:
+        result_folder = os.environ['HOME'] + "/.archivefuzz/" + domain + "-output"
     if not os.path.exists(result_folder):
         print("\n\u001b[32m  Creating result at %s\u001b[0m" % (result_folder))
         os.makedirs(result_folder)
@@ -50,7 +53,6 @@ def report_generator(folder, filename, data):
     except OSError as e:
         print("\u001b[31;1m%s[0m" % (e))
         raise OSError("\u001b[31;1mError while writing %s[0m" % (report_file))
-
 
 
 def info_gatherer(data, task_name, patterns):
@@ -69,6 +71,10 @@ def info_gatherer(data, task_name, patterns):
         r = re.sub(blacklist_pattern, '', data)
         results = set(re.findall(task_pattern , r))
     else:
-        results = set(re.findall(task_pattern, data))
+        if task_name.startswith("IPv"):
+            results = re.findall(task_pattern, data)
+            results = set([".".join(octet) for octet in results])
+        else:
+            results = set(re.findall(task_pattern, data))
     print("   %s[+] %-30s: %s" % (second_sub, task_name, len(results)))
     return list(results)
