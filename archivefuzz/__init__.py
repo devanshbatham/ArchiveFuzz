@@ -34,7 +34,10 @@ def prepare_result(domain):
         result_folder: string full path of folder to save files
     """
     # Might not work on windows system
-    result_folder = os.environ['HOME'] + "/.archivefuzz/" + domain + "-output"
+    if os.name == "nt":
+        result_folder = domain + "-output"
+    else:
+        result_folder = os.environ['HOME'] + "/.archivefuzz/" + domain + "-output"
     if not os.path.exists(result_folder):
         print("\n\u001b[32m  Creating result at %s\u001b[0m" % (result_folder))
         os.makedirs(result_folder)
@@ -50,7 +53,6 @@ def report_generator(folder, filename, data):
     except OSError as e:
         print("\u001b[31;1m%s[0m" % (e))
         raise OSError("\u001b[31;1mError while writing %s[0m" % (report_file))
-
 
 
 def info_gatherer(data, task_name, patterns):
