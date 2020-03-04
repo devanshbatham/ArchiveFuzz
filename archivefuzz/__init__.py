@@ -3,7 +3,7 @@ import re
 import os
 import errno
 
-def email_enumerator(url, domain, r):
+def email_finder(url, domain, r):
     """
         Finding the emails from web.archive.org server
         Input:
@@ -140,7 +140,8 @@ def subdomain_finder(url, domain, r):
 
     print("   " + second_sub + "[+] Subdomain scan finished ")
 
-def find_secret_tokens(url, domain, data):
+def token_finder(url, domain, data):
+    from archivefuzz import token_utils
     """
         Input:
             url: str. This is web.archive.org URL we are using to find info about target
@@ -154,11 +155,11 @@ def find_secret_tokens(url, domain, data):
     print(" \u001b[32m  |")
 
     # for amazon secrets : 
-    amazon_secrets(data, domain)
+    token_utils.amazon_secrets(data, domain)
     #for facebook Access token   
-    facebook_access(data, domain) 
+    token_utils.facebook_access(data, domain) 
     # for facebook oath tokens 
-    facebook_oath(data, domain )
+    token_utils.facebook_oath(data, domain)
     #facebook_secrets(data , domain)
     # for google api key 
-    google_api(data, domain)
+    token_utils.google_api(data, domain)

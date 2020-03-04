@@ -1,9 +1,6 @@
-from error_handling import error_handler
-from subdomains import subdomain
-from emails import email_enumerator
-from ip_address import find_ip
-from secret_tokens import find_secret_tokens
+from archivefuzz import *
 from urllib.parse import unquote 
+from error_handling import error_handler
 import requests
 import errno
 import re
@@ -49,12 +46,12 @@ if __name__ == "__main__":
         print(err)
         exit(0)
     data = unquote(r.text)                 # url decoding the data 
-    subdomain(url , domain , r)            # for subdomains, imported from subdomains.py
-    email_enumerator(url , domain , data)  # for emails , imported from emails.py 
-    find_ip(url , domain ,data)            # finds IPv4 addresses , imported from ip_address.py
+    subdomain_finder(url , domain , r)            # for subdomains, imported from subdomains.py
+    email_finder(url , domain , data)  # for emails , imported from emails.py 
+    ip_finder(url , domain ,data)            # finds IPv4 addresses , imported from ip_address.py
 
      # beta state starts here  
-    find_secret_tokens(url , domain , data)                                    
+    token_finder(url , domain , data)                                    
                                           # prints the total execution time 
 
 
