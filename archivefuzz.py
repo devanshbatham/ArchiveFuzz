@@ -16,13 +16,12 @@ start_time = time.time()
 Dont be a jerk use responsibly
 '''
 
-if __name__ == "__main__":
-    
+if __name__ == "__main__": 
     if os.name == 'nt':
         os.system('cls')
 
     banner = """
-\u001b[35;1m
+    \u001b[35;1m
      _____                .__    .__            ___________                    
     /  _  \_______   ____ |  |__ |__|__  __ ____\_   _____/_ __________________
    /  /_\  \_  __ \_/ ___\|  |  \|  \  \/ // __ \|    __)|  |  \___   /\___   /
