@@ -12,24 +12,24 @@ def amazon_secrets(data, domain):
     cnt = Counter(aws_clients)
 
     print("   " + second_sub + "[+] AWS Access IDs found             : " + str(len(cnt)))
-    filename = domain + "-output/" + domain + "-AWS-ACCESS-IDs.txt"
-    if len(cnt) > 0:
-        if not os.path.exists(os.path.dirname(filename)):
-            try:
-                os.makedirs(os.path.dirname(filename))
-            except OSError as exc: # a check to protect againsts the Racecondition issues
-                if exc.errno != errno.EEXIST:
-                    raise
-        # if the file already exists , empty the file, this happens when you run the scan against same target multiple times
-        with open(filename, 'w') as empty:
-            empty.write('')
+    # filename = domain + "-output/" + domain + "-AWS-ACCESS-IDs.txt"
+    # if len(cnt) > 0:
+    #     if not os.path.exists(os.path.dirname(filename)):
+    #         try:
+    #             os.makedirs(os.path.dirname(filename))
+    #         except OSError as exc: # a check to protect againsts the Racecondition issues
+    #             if exc.errno != errno.EEXIST:
+    #                 raise
+    #     # if the file already exists , empty the file, this happens when you run the scan against same target multiple times
+    #     with open(filename, 'w') as empty:
+    #         empty.write('')
 
-        # writing the aws access ids in file
+    #     # writing the aws access ids in file
         
-        for i in cnt.keys():
-            with open(filename, "a") as f:
-                f.write(i + "\n") 
-        print("   " + second_sub + "[+] AWS Access IDs saved in          : {} ".format(filename))
+    #     for i in cnt.keys():
+    #         with open(filename, "a") as f:
+    #             f.write(i + "\n") 
+    #     print("   " + second_sub + "[+] AWS Access IDs saved in          : {} ".format(filename))
 
 
 def facebook_access(data, domain):
@@ -41,23 +41,23 @@ def facebook_access(data, domain):
     cnt = Counter(facebook_access_tokens)
 
     print("   " + second_sub + "[+] Facebook Access Tokens found     : " + str(len(cnt)))
-    filename = domain + "-output/" + domain + "-Facebook-access-tokens.txt"
-    if len(cnt) > 0: 
-        if not os.path.exists(os.path.dirname(filename)):
-            try:
-                os.makedirs(os.path.dirname(filename))
-            except OSError as exc: # a check to protect againsts the Racecondition issues
-                if exc.errno != errno.EEXIST:
-                    raise
-        # if the file already exists , empty the file, this happens when you run the scan against same target multiple times
-        with open(filename, 'w') as empty:
-            empty.write('')
+    # filename = domain + "-output/" + domain + "-Facebook-access-tokens.txt"
+    # if len(cnt) > 0: 
+    #     if not os.path.exists(os.path.dirname(filename)):
+    #         try:
+    #             os.makedirs(os.path.dirname(filename))
+    #         except OSError as exc: # a check to protect againsts the Racecondition issues
+    #             if exc.errno != errno.EEXIST:
+    #                 raise
+    #     # if the file already exists , empty the file, this happens when you run the scan against same target multiple times
+    #     with open(filename, 'w') as empty:
+    #         empty.write('')
 
         
-        for i in cnt.keys():
-            with open(filename, "a") as f:
-                f.write(i + "\n") 
-        print("   " + second_sub + "[+] Facebook Tokens saved in         : {} ".format(filename))
+    #     for i in cnt.keys():
+    #         with open(filename, "a") as f:
+    #             f.write(i + "\n") 
+    #     print("   " + second_sub + "[+] Facebook Tokens saved in         : {} ".format(filename))
     
     
 
@@ -70,23 +70,23 @@ def facebook_oath(data, domain):
     cnt = Counter(facebook_oath_tokens)
     print("   " + second_sub + "[+] Facebook Oath Tokens found       : " + str(len(cnt)))
 
-    filename = domain + "-output/" + domain + "-Facebook-oath-tokens.txt"
-    if len(cnt) > 0: 
-        if not os.path.exists(os.path.dirname(filename)):
-            try:
-                os.makedirs(os.path.dirname(filename))
-            except OSError as exc: # a check to protect againsts the Racecondition issues
-                if exc.errno != errno.EEXIST:
-                    raise
-        # if the file already exists , empty the file, this happens when you run the scan against same target multiple times
-        with open(filename, 'w') as empty:
-            empty.write('')
+    # filename = domain + "-output/" + domain + "-Facebook-oath-tokens.txt"
+    # if len(cnt) > 0: 
+    #     if not os.path.exists(os.path.dirname(filename)):
+    #         try:
+    #             os.makedirs(os.path.dirname(filename))
+    #         except OSError as exc: # a check to protect againsts the Racecondition issues
+    #             if exc.errno != errno.EEXIST:
+    #                 raise
+    #     # if the file already exists , empty the file, this happens when you run the scan against same target multiple times
+    #     with open(filename, 'w') as empty:
+    #         empty.write('')
 
         
-        for i in cnt.keys():
-            with open(filename, "a") as f:
-                f.write(i+"\n") 
-        print("   " + second_sub + "[+] Facebook Oath Tokens  saved in   : {} ".format(filename))
+    #     for i in cnt.keys():
+    #         with open(filename, "a") as f:
+    #             f.write(i+"\n") 
+    #     print("   " + second_sub + "[+] Facebook Oath Tokens  saved in   : {} ".format(filename))
 
 def google_api(data, domain):
     # for interactive output
@@ -97,21 +97,21 @@ def google_api(data, domain):
     cnt = Counter(google_apis)
     print("   " + second_sub + "[+] Google API Keys found            : " + str(len(cnt)))
     
-    filename = domain + "-output/" + domain + "-Google-API-keys.txt"
-    if len(cnt) > 0: 
-        if not os.path.exists(os.path.dirname(filename)):
-            try:
-                os.makedirs(os.path.dirname(filename))
-            except OSError as exc: # a check to protect againsts the Racecondition issues
-                if exc.errno != errno.EEXIST:
-                    raise
-        # if the file already exists , empty the file, this happens when you run the scan against same target multiple times
-        with open(filename, 'w') as empty:
-            empty.write('')
+    # filename = domain + "-output/" + domain + "-Google-API-keys.txt"
+    # if len(cnt) > 0: 
+    #     if not os.path.exists(os.path.dirname(filename)):
+    #         try:
+    #             os.makedirs(os.path.dirname(filename))
+    #         except OSError as exc: # a check to protect againsts the Racecondition issues
+    #             if exc.errno != errno.EEXIST:
+    #                 raise
+    #     # if the file already exists , empty the file, this happens when you run the scan against same target multiple times
+    #     with open(filename, 'w') as empty:
+    #         empty.write('')
 
         
-        for i in cnt.keys():
-            with open(filename, "a") as f:
-                f.write(i+"\n") 
-        print("   " + second_sub + "[+] Google  APIs  saved in           : {} ".format(filename))
-    print("   " + second_sub + "[+] API Key scan finished ")
+    #     for i in cnt.keys():
+    #         with open(filename, "a") as f:
+    #             f.write(i+"\n") 
+    #     print("   " + second_sub + "[+] Google  APIs  saved in           : {} ".format(filename))
+    # print("   " + second_sub + "[+] API Key scan finished ")

@@ -2,11 +2,10 @@ from collections import Counter
 import re
 import os
 
-def email_finder(url, domain, r):
+def email_finder(domain, r):
     """
         Finding the emails from web.archive.org server
         Input:
-            url: str. This is web.archive.org URL we are using to find info about target
             domain: str: target domain name
             r: Web archive response
         Output: All data that has email syntax
@@ -22,37 +21,17 @@ def email_finder(url, domain, r):
     
     r = re.sub('(-p-|mp4|webm|JPG|pdf|html|jpg|jpeg|png|gif|bmp|svg|1x|2x|3x|4x|5x|6x|7x|9x|10x|11x|12x|13x|14x|15x)', '', r) 
     any_email_pattern = "([a-zA-Z0-9+._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]{2,7})" # pattern for matching  email 
-    any_emails = re.findall(any_email_pattern, r) # list of all the emails 
-    cnt = Counter(any_emails) # removing duplicate emails
-    print("   " + second_sub + "[+] Total unique emails found        : " + str(len(cnt))) # printing no of unique subdomains
-
-    filename = domain + "-output/" + domain + "-emails.txt" #defining the filename
-    if len(cnt) > 0: # if no of emails are not zero
-        if not os.path.exists(os.path.dirname(filename)):
-            try:
-                os.makedirs(os.path.dirname(filename))
-            except OSError as exc: # a check to protect againsts the Racecondition issues
-                if exc.errno != errno.EEXIST:
-                    raise
-        # if the file already exists , empty the file, this happens when you run the scan against same target multiple times
-        with open(filename, 'w') as empty:
-            empty.write('')
-
-        # writing the subdomains in file
-        
-        for i in cnt.keys():
-            with open(filename, "a") as f:
-                f.write(i + "\n") # writing all the emails in a file 
-        print("   " + second_sub + "[+] Emails saved in                  : {} ".format(filename))
-
+    # Filter duplicate elements
+    any_emails = set(re.findall(any_email_pattern, r)) # list of all the emails 
+    print("   " + second_sub + "[+] Total unique emails found        : " + str(len(any_emails))) # printing no of unique subdomains
     print("   " + second_sub + "[+] Email scan finished ")
+    return list(any_emails)
 
 
-def ip_finder(url, domain, data):
+def ip_finder(domain, data):
     """
         Finding the IP Addresses web.archive.org server
         Input:
-            url: str. This is web.archive.org URL we are using to find info about target
             domain: str: target domain name
             r: Web archive response
         Output: All data that has IPv4 syntax
@@ -67,41 +46,20 @@ def ip_finder(url, domain, data):
     
     # finding IPv4 addresses 
     ip_pattern = "(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9][0-9]?)"
-    ip_addresses = re.findall(ip_pattern , data)
-    final_ips = []
+    ip_addresses = re.findall(ip_pattern, data)
+    if ip_addresses:
+        ip_addresses = list(set([".".join(octet) for octet in addresses]))
 
-    for i in range(len(ip_addresses)):
-        final_ips.append('.'.join(list(ip_addresses[i])))    
-    cnt = Counter(ip_addresses)
-    print("   " + second_sub + "[+] Total unique IPs found           : " + str(len(cnt)))
-    filename = domain + "-output/" + domain + "-IPs.txt" #defining the filename
-    final = Counter(final_ips)
-    # if directory doesnot exists create it 
-    if len(cnt) > 0:
-        if not os.path.exists(os.path.dirname(filename)):
-            try:
-                os.makedirs(os.path.dirname(filename))
-            except OSError as exc: # a check to protect againsts the Racecondition issues
-                if exc.errno != errno.EEXIST:
-                    raise
-        # if the file already exists , empty the file, this happens when you run the scan against same target multiple times
-        with open(filename, 'w') as empty:
-            empty.write('')
-    
-        # writing the IPs in file
-        for i in final.keys():
-            with open(filename, "a") as f:
-                f.write(i + "\n")
-        print("   " + second_sub +"[+] IPs saved in                     : {} ".format(filename))
-
+    print("   " + second_sub + "[+] Total unique IPs found           : " + str(len(ip_addresses)))
     print("   " + second_sub + "[+] IP scan finished ")
+    
+    return ip_addresses
 
 
-def subdomain_finder(url, domain, r):
+def subdomain_finder(domain, r):
     """
         Finding subdomains from web-archive
         Input:
-            url: str. This is web.archive.org URL we are using to find info about target
             domain: str: target domain name
             r: Web archive response
         Output: All data that has subdomain syntax
@@ -115,35 +73,17 @@ def subdomain_finder(url, domain, r):
 
     # finding subdomains
     subdomain_pattern = '[0-9a-z]+\.' + domain #matching subdomains 
-    subdomains = re.findall(subdomain_pattern , r)
-    cnt = Counter(subdomains) # using counter for removing duplicate entries 
-    print("   " + second_sub + "[+] Total unique subdomains found    : " + str(len(cnt))) # printing no of unique subdomains
-    filename = domain + "-output/" + domain + "-subdomains.txt" #defining the filename
-    # if directory doesnot exists create it 
-    if len(cnt) > 0:
-        if not os.path.exists(os.path.dirname(filename)):
-            try:
-                os.makedirs(os.path.dirname(filename))
-            except OSError as exc: # a check to protect againsts the Racecondition issues
-                if exc.errno != errno.EEXIST:
-                    raise
-        # if the file already exists , empty the file, this happens when you run the scan against same target multiple times
-        with open(filename, 'w') as empty:
-            empty.write('')
-
-        # writing the subdomains in file
-        for i in cnt.keys():
-            with open(filename, "a") as f:
-                f.write(i+"\n")
-        print("   " + second_sub + "[+] Subdomains saved in              : {} ".format(filename))
-
+    # filter duplicate elemments
+    subdomains = set(re.findall(subdomain_pattern , r))
+    print("   " + second_sub + "[+] Total unique subdomains found    : " + str(len(subdomains))) # printing no of unique subdomains
     print("   " + second_sub + "[+] Subdomain scan finished ")
+    return list(subdomains)
 
-def token_finder(url, domain, data):
+
+def token_finder(domain, data):
     from archivefuzz import token_utils
     """
         Input:
-            url: str. This is web.archive.org URL we are using to find info about target
             domain: str: target domain name
             r: Web archive response
         Output: All data that has valid token syntax
