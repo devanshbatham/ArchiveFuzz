@@ -17,6 +17,7 @@ def main(domain, result_folder):
     if not response:
         return
     data = unquote(response) # url decoding the data
+    # You can add more API regex patterns in the below dictionary 
     tasks = {
         "Email": [
             "([a-zA-Z0-9+._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]{2,7})",
