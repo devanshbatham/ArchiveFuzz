@@ -14,7 +14,7 @@ I initially made ArchiveFuzz for my personal use , Now making it public . This r
 
 Lets scan example.com for archived secrets :
 
-`python archivehunter.py mail.ru`
+`python3 archivehunter.py mail.ru`
 
 
 ![example](https://raw.githubusercontent.com/devanshbatham/ArchiveFuzz/master/static/mailru-example.PNG)
@@ -39,7 +39,7 @@ Lets scan example.com for archived secrets :
 
 `pip install -r requirements.txt`
 
-`python archivefuzz.py example.com`
+`python3 archivefuzz.py example.com`
 
 # TODO
 Implementing checks for more API keys that are passed in GET requests.

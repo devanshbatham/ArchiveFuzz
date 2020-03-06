@@ -19,6 +19,7 @@ def main(domain, result_folder):
     data = unquote(response) # url decoding the data
     
     # add your api keys here , the form of dict [format : {"taskname" : ["regex pattern"] , [blacklist pattern(if any)]}]
+
     tasks = {
         "Email": [
             "([a-zA-Z0-9+._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]{2,7})",
