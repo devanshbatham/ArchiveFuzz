@@ -4,10 +4,13 @@ import re
 
 
 def connector(url):
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion'
+    }
     result = False
     try:
         # TODO control request headers in here
-        response = requests.get(url, timeout=30)
+        response = requests.get(url,headers=headers ,timeout=30)
         result = response.text
     except requests.ConnectionError as e:
         raise ConnectionError("\u001b[31;1mCan not connect to server. Check your internet connection\u001b[0m")
