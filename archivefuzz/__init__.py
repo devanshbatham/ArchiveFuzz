@@ -4,6 +4,8 @@ import re
 
 
 def connector(url):
+
+    # for some reason , the request made via default useragent was denied, so added a custom user agent of firefox
     headers = {
         'User-Agent': 'Mozilla/5.0 (platform; rv:geckoversion) Gecko/geckotrail Firefox/firefoxversion'
     }
